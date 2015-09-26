@@ -3,21 +3,39 @@
 
 (defn is-even? [n]
   (if (= n 0)
-    __
-    (___ (is-even? (dec n)))))
+    true
+    (not (is-even? (dec n)))))
 
 (defn is-even-bigint? [n]
   (loop [n   n
          acc true]
     (if (= n 0)
-      __
+      acc
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (if (< (count coll) 2)
+    coll
+    (let [
+          fst (first coll) 
+          lst (last coll) 
+          mid (subvec coll 1 (dec (count coll)))
+      ]
+      (flatten [lst (recursive-reverse mid) fst])
+    )
+  )
+)
 
 (defn factorial [n]
-  __)
+  (
+    (fn [n acc]
+      (if (< n 2)
+        acc
+        (recur (dec n) (* n acc))
+      )
+    )
+  n 1)
+)
 
 (meditations
   "Recursion ends with a base case"
@@ -34,6 +52,9 @@
 
   "Yet it becomes more difficult the more steps you take"
   (= '(5 4 3 2 1) (recursive-reverse [1 2 3 4 5]))
+
+  "Yet it becomes more difficult the more steps you take"
+  (= '(6 5 4 3 2 1) (recursive-reverse [1 2 3 4 5 6]))
 
   "Simple things may appear simple."
   (= 1 (factorial 1))
